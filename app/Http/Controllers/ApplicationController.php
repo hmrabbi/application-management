@@ -144,12 +144,22 @@ class ApplicationController extends Controller
       */
 
       public function applicationList(Request $request){
-        $listApplication = Application::whereIn('status',[1,2])->get();
+        $listApplication = Application::whereIn('status',[1,2]);
+
+        if ($request->agreement_no) {
+            $listApplication = $listApplication->where('agreement_no', $request->agreement_no);
+        }
+
+        if ($request->first_agreement_date) {
+            $listApplication = $listApplication->whereDate('first_agreement_date', $request->first_agreement_date);
+        }
+
+        $list = $listApplication->get();
 
         return response()->json([
             'status' => true,
             'message' => 'Data List Successfully',
-            'data' => $listApplication
+            'data' => $list
         ]);
       }
 
