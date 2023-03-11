@@ -144,7 +144,7 @@ class ApplicationController extends Controller
       */
 
       public function applicationList(Request $request){
-        $listApplication = Application::whereIn('status',[1,2,3,4,5,6,7])->get();
+        $listApplication = Application::whereIn('status',[1,2])->get();
 
         return response()->json([
             'status' => true,
@@ -155,7 +155,7 @@ class ApplicationController extends Controller
 
 
       public function saveStatusDraf(Request $request){
-        $draflist = Application::whereIn('save_status',[1,7,8,9])->get();
+        $draflist = Application::where('save_status',1)->get();
 
         return response()->json([
             'status' => true,
@@ -181,7 +181,7 @@ class ApplicationController extends Controller
 
 
       public function saveStatus(Request $request){
-        $saveStaus = Application::whereIn('save_status',[1,2,3,4,5,6,7,8,9])->get();
+        $saveStaus = Application::where('save_status',2)->get();
 
         return response()->json([
             'status' => true,
